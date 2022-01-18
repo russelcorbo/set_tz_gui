@@ -1,5 +1,8 @@
 #!/bin/bash
 
+"""This is a testing file."""
+
+
 timezonegui=$(python3 timezone_gui.py)
 
 
