@@ -48,23 +48,20 @@ time_server='time.apple.com'
 # Dynamic time zone
 # time_zone=$(systemsetup -gettimezone | awk '/Time Zone/ {print $3}')
 
+"""pulls in int from timezone_gui.py, goes through if statement to figure out which time zone it's called, I think this may be better suited 
+in the original .py program, but I can't figure out how to do that."""
 timezonegui=$(python3 timezone_gui.py)
 
 if [[ $timezonegui == 23 ]]; then
 	time_zone='America/New_York'
-    echo $time_zone
 elif [[ $timezonegui == 24 ]]; then
 	time_zone='America/Chicago'
-    echo $time_zone
 elif [[ $timezonegui == 25 ]]; then
 	time_zone='America/Denver'
-    echo $time_zone
 elif [[ $timezonegui == 26 ]]; then
 	time_zone='America/Los_Angeles'
-    echo $time_zone
 elif [[ $timezonegui == 27 ]]; then
 	time_zone='GMT'
-    echo $time_zone
 else
 	raise_error
 fi
@@ -80,17 +77,20 @@ fi
 # 'GMT'						# Greenwich Mean Time (Dublin/London/UTC)
 
 # Verify that $4 param was passed and static $time_server var is empty, then assign value
-if [[ ! -z "$4" ]]; then
+#if [[ ! -z "$4" ]]; then
     time_zone=$4
-else
+#else
 	# Static time zone (disabled in JSS)
-	time_zone='America/New_York'
-fi
+#	time_zone='America/New_York'
+#fi
 
 # Temporarily disable network time
 systemsetup -setusingnetworktime off
 
 # Set time server and network time
+
+"""If $time_zone isn't empty then go into the If statement by setting the network time using the variable from $time_zone"""
+
 if [[ ! -z "$time_zone" ]]; then
 	echo "Setting network time server to: $time_server..."
 	systemsetup -setnetworktimeserver $time_server
