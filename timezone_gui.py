@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import dearpygui.dearpygui as dpg
 import sys
 import time
